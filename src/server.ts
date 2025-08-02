@@ -13,6 +13,10 @@ app.use(express.json());
 
 app.use("/api", adminRouter);
 
+app.get("/", (_req, res) => {
+  res.send("Witaj w Warsztata Pięknych włosów, część serwerowa");
+});
+
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
