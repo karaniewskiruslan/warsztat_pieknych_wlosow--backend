@@ -6,6 +6,10 @@ import { servicesList } from "../initialData/services.data";
 dotenv.config();
 const servicesRouter = express.Router();
 
+const generateId = (): number => {
+  return servicesList.length ? Math.max(...servicesList.map((s) => s.id)) + 1 : 1;
+};
+
 servicesRouter.get("/services", (_, res) => {
   res.status(200).json(servicesList);
 });
@@ -23,10 +27,15 @@ servicesRouter.get("/services/:id", (req, res) => {
 
 servicesRouter.post("/services/", (req, res) => {
   const { name, image, category, options, cost } = req.body;
-  const newService: Services = { id: servicesList.length - 1, name, image, category, options, cost };
+
+  if (!name || !image || !category || !Array.isArray(options)) {
+    return res.status(400).json({ error: "Invalid service data" });
+  }
+
+  const newService: Services = { id: generateId(), name, image, category, options, cost };
   servicesList.push(newService);
 
-  res.status(200).json(servicesList);
+  res.status(201).json(newService);
 });
 
 servicesRouter.put("/services/:id", (req, res) => {
@@ -45,9 +54,14 @@ servicesRouter.put("/services/:id", (req, res) => {
 
 servicesRouter.delete("/services/:id", (req, res) => {
   const id = +req.params.id;
-  const updatedServices = servicesList.filter((el) => el.id !== id);
+  const index = servicesList.findIndex((el) => el.id === id);
 
-  res.status(200).json(updatedServices);
+  if (index === -1) {
+    return res.status(404).json({ error: "Service not found" });
+  }
+
+  servicesList.splice(index, 1);
+  res.status(200).json(servicesList);
 });
 
 export default servicesRouter;

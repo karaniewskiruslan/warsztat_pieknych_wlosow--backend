@@ -246,7 +246,7 @@ export const servicesList: Services[] = [
     image: "/warsztat_pieknych_wlosow/img/services/Photorejuvenation.svg",
     name: "Fotoodmładzanie",
     category: "Terapia światłem oraz fotoodmładzanie",
-    options: ["1 zabieg", "5 zabieg"],
+    options: ["1 zabieg", "5 zabiegów"],
     cost: [90, 360],
   },
 ];
