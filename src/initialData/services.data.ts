@@ -3,7 +3,7 @@ import { Services } from "../types/services.type";
 export const servicesList: Services[] = [
   {
     id: 0,
-    image: "/warsztat_pieknych_wlosow/img/services/HairSkinPeeling.svg",
+    image: "HairSkinPeeling.svg",
     name: "Peeling skóry włosów",
     category: "Podstawowe usługi fryzjera",
     options: ["Krótkie włosy", "Do ramion", "Do łopatki", "Do pasa"],
@@ -11,7 +11,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 1,
-    image: "/warsztat_pieknych_wlosow/img/services/HairLamination.svg",
+    image: "HairLamination.svg",
     name: "Laminowanie włosów",
     category: "Podstawowe usługi fryzjera",
     options: ["Do ramion", "Do łopatki", "Do pasa"],
@@ -19,7 +19,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 2,
-    image: "/warsztat_pieknych_wlosow/img/services/UrgentHairRestoration.svg",
+    image: "UrgentHairRestoration.svg",
     name: "Odbudowa włosów SOS",
     category: "Podstawowe usługi fryzjera",
     options: ["Do ramion", "Do łopatki", "Do pasa"],
@@ -27,7 +27,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 3,
-    image: "/warsztat_pieknych_wlosow/img/services/ManHaircut.svg",
+    image: "ManHaircut.svg",
     name: "Strzyżenie męskie",
     category: "Podstawowe usługi fryzjera",
     options: ["Bez mycia", "Mycie, stylizacja", "Oczyszcznie skóry, mycie, stylizacja"],
@@ -35,7 +35,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 4,
-    image: "/warsztat_pieknych_wlosow/img/services/BangsCut.svg",
+    image: "BangsCut.svg",
     name: "Obcinanie grzywki",
     category: "Podstawowe usługi fryzjera",
     options: [],
@@ -43,7 +43,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 5,
-    image: "/warsztat_pieknych_wlosow/img/services/ChildHaircut.svg",
+    image: "ChildHaircut.svg",
     name: "Strzyżenie dzieci do 7 lat",
     category: "Podstawowe usługi fryzjera",
     options: [],
@@ -51,7 +51,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 6,
-    image: "/warsztat_pieknych_wlosow/img/services/WomanHaircut.svg",
+    image: "WomanHaircut.svg",
     name: "Strzyżenie damskie",
     category: "Podstawowe usługi fryzjera",
     options: ["Krótkie-średnie", "Średnie-długie"],
@@ -59,7 +59,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 7,
-    image: "/warsztat_pieknych_wlosow/img/services/EndsTrimming.svg",
+    image: "EndsTrimming.svg",
     name: "Podcinanie końcówek maszynką",
     category: "Podstawowe usługi fryzjera",
     options: ["Bez mycia", "Z myciem"],
@@ -67,7 +67,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 8,
-    image: "/warsztat_pieknych_wlosow/img/services/HairModeling.svg",
+    image: "HairModeling.svg",
     name: "Modelowanie włosów",
     category: "Podstawowe usługi fryzjera",
     options: [],
@@ -75,7 +75,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 9,
-    image: "/warsztat_pieknych_wlosow/img/services/HairColoring.svg",
+    image: "HairColoring.svg",
     name: "Farbowanie włosów (Pasemka, Balojaż)",
     category: "Podstawowe usługi fryzjera",
     options: [],
@@ -83,7 +83,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 10,
-    image: "/warsztat_pieknych_wlosow/img/services/RegrowthColoring.svg",
+    image: "RegrowthColoring.svg",
     name: "Farbowanie odrostów (Pasemka, Balojaż)",
     category: "Podstawowe usługi fryzjera",
     options: [],
@@ -91,7 +91,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 11,
-    image: "/warsztat_pieknych_wlosow/img/services/AirtouchColoring.svg",
+    image: "AirtouchColoring.svg",
     name: "Farbowanie AirTouch",
     category: "Podstawowe usługi fryzjera",
     options: ["Do ramion", "Do łopatki", "Do pasa"],
@@ -99,7 +99,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 12,
-    image: "/warsztat_pieknych_wlosow/img/services/ColorfulBath.svg",
+    image: "ColorfulBath.svg",
     name: "Kolorowa kąpiel",
     category: "Podstawowe usługi fryzjera",
     options: ["Neutralizacja żółtego", "Nadanie niuansowi kolor"],
@@ -107,7 +107,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 13,
-    image: "/warsztat_pieknych_wlosow/img/services/Toning.svg",
+    image: "Toning.svg",
     name: "Tonowanie ton w ton i ciemniejszy",
     category: "Podstawowe usługi fryzjera",
     options: ["Do ramion", "Do łopatki", "Do pasa"],
@@ -115,7 +115,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 14,
-    image: "/warsztat_pieknych_wlosow/img/services/Consulting.svg",
+    image: "Consulting.svg",
     name: "Konsultacja fryzjera",
     category: "Podstawowe usługi fryzjera",
     options: [],
@@ -123,7 +123,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 15,
-    image: "/warsztat_pieknych_wlosow/img/services/RegrowthColoringDark.svg",
+    image: "RegrowthColoringDark.svg",
     name: "Farbowanie odrostów ciemny",
     category: "Podstawowe usługi fryzjera",
     options: ["Krótkie", "Średnie", "Długie"],
@@ -131,7 +131,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 16,
-    image: "/warsztat_pieknych_wlosow/img/services/RegrowthColoringBlond.svg",
+    image: "RegrowthColoringBlond.svg",
     name: "Farbowanie odrostów blond",
     category: "Podstawowe usługi fryzjera",
     options: ["Krótkie", "Średnie", "Długie"],
@@ -139,7 +139,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 17,
-    image: "/warsztat_pieknych_wlosow/img/services/CientDyeColoring.svg",
+    image: "CientDyeColoring.svg",
     name: "Farbowanie włosów farbą klienta",
     category: "Podstawowe usługi fryzjera",
     options: ["Krótkie", "Średnie", "Długie"],
@@ -147,7 +147,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 18,
-    image: "/warsztat_pieknych_wlosow/img/services/BIOHairCurling.svg",
+    image: "BIOHairCurling.svg",
     name: "Kręcenie włosów BIO",
     category: "Trwałe usługi fryzjera",
     options: ["Do ramion", "Do łopatki", "Do pasa"],
@@ -155,7 +155,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 19,
-    image: "/warsztat_pieknych_wlosow/img/services/BIOHairCurlingMan.svg",
+    image: "BIOHairCurlingMan.svg",
     name: "Męskie kręcenie włosów BIO",
     category: "Trwałe usługi fryzjera",
     options: [],
@@ -163,7 +163,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 20,
-    image: "/warsztat_pieknych_wlosow/img/services/RootVolume.svg",
+    image: "RootVolume.svg",
     name: "Objętość korzenia",
     category: "Trwałe usługi fryzjera",
     options: ["Krótkie włosy", "Do ramion", "Do łopatki", "Do pasa"],
@@ -171,7 +171,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 21,
-    image: "/warsztat_pieknych_wlosow/img/services/ManicureHybrid.svg",
+    image: "ManicureHybrid.svg",
     name: "Manicure hybrydowy",
     category: "Usługi manicure",
     options: ["Zwykły", "French"],
@@ -179,7 +179,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 22,
-    image: "/warsztat_pieknych_wlosow/img/services/Manicure.svg",
+    image: "Manicure.svg",
     name: "Manicure",
     category: "Usługi manicure",
     options: ["Złykły lakier", "Bez malowania", "Z odżywką"],
@@ -187,7 +187,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 23,
-    image: "/warsztat_pieknych_wlosow/img/services/NailsFixing.svg",
+    image: "NailsFixing.svg",
     name: "Naprawa paznokcia",
     category: "Usługi manicure",
     options: [],
@@ -195,7 +195,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 24,
-    image: "/warsztat_pieknych_wlosow/img/services/Massage.svg",
+    image: "Massage.svg",
     name: "Masaż dłoni",
     category: "Usługi manicure",
     options: [],
@@ -203,7 +203,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 25,
-    image: "/warsztat_pieknych_wlosow/img/services/AdditionNailsStr.svg",
+    image: "AdditionNailsStr.svg",
     name: "Dodatkowe wzmocnienie paznokcia",
     category: "Usługi manicure",
     options: [],
@@ -211,7 +211,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 26,
-    image: "/warsztat_pieknych_wlosow/img/services/ExpressManicure.svg",
+    image: "ExpressManicure.svg",
     name: "Express Manicure",
     category: "Usługi manicure",
     options: [],
@@ -219,7 +219,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 27,
-    image: "/warsztat_pieknych_wlosow/img/services/Pedicure.svg",
+    image: "Pedicure.svg",
     name: "Pedicure",
     category: "Pedicure",
     options: ["Tylko pięty", "Tylko palce", "Bez malowania", "Zwykły lakier", "Hybrydowy"],
@@ -227,7 +227,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 28,
-    image: "/warsztat_pieknych_wlosow/img/services/PedicureManicure.svg",
+    image: "PedicureManicure.svg",
     name: "Pedicure + manicure",
     category: "Pedicure",
     options: [],
@@ -235,7 +235,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 29,
-    image: "/warsztat_pieknych_wlosow/img/services/LightTherapy.svg",
+    image: "LightTherapy.svg",
     name: "Światłoterapia",
     category: "Terapia światłem oraz fotoodmładzanie",
     options: ["10 minut", "100 minut"],
@@ -243,7 +243,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 30,
-    image: "/warsztat_pieknych_wlosow/img/services/Photorejuvenation.svg",
+    image: "Photorejuvenation.svg",
     name: "Fotoodmładzanie",
     category: "Terapia światłem oraz fotoodmładzanie",
     options: ["1 zabieg", "5 zabiegów"],
