@@ -49,7 +49,7 @@ servicesRouter.put("/services/:id", (req, res) => {
 
   Object.assign(updatedService, { name, image, category, options, cost });
 
-  res.status(200).json(updatedService);
+  res.status(201).json(updatedService);
 });
 
 servicesRouter.delete("/services/:id", (req, res) => {
@@ -61,7 +61,7 @@ servicesRouter.delete("/services/:id", (req, res) => {
   }
 
   servicesList.splice(index, 1);
-  res.status(200).json(servicesList);
+  res.status(201).json(servicesList);
 });
 
 export default servicesRouter;
