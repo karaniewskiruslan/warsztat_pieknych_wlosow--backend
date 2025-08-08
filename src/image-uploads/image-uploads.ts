@@ -1,5 +1,7 @@
 import multer from "multer";
 
+const storage = multer.memoryStorage();
+
 export const serviceImageUpload = multer({
   limits: {
     fileSize: 5 * 1024 * 1024,
@@ -16,4 +18,5 @@ export const serviceImageUpload = multer({
       cb(new Error("Unaccepted file type"));
     }
   },
+  storage: multer.memoryStorage(),
 });

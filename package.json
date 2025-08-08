@@ -27,6 +27,8 @@
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
     "multer": "^2.0.2",
+    "path": "^0.12.7",
+    "uuid": "^11.1.0",
     "validate-image-type": "^3.0.0",
     "yup": "^1.7.0"
   },

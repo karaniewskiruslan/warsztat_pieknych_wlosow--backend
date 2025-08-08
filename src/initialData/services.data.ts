@@ -3,7 +3,7 @@ import { Services } from "../types/services.type";
 export const servicesList: Services[] = [
   {
     id: 0,
-    image: "HairSkinPeeling.svg",
+    image: "images/services/HairSkinPeeling.svg",
     name: "Peeling skóry włosów",
     category: "Podstawowe usługi fryzjera",
     options: ["Krótkie włosy", "Do ramion", "Do łopatki", "Do pasa"],
@@ -11,7 +11,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 1,
-    image: "HairLamination.svg",
+    image: "images/services/HairLamination.svg",
     name: "Laminowanie włosów",
     category: "Podstawowe usługi fryzjera",
     options: ["Do ramion", "Do łopatki", "Do pasa"],
@@ -19,7 +19,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 2,
-    image: "UrgentHairRestoration.svg",
+    image: "images/services/UrgentHairRestoration.svg",
     name: "Odbudowa włosów SOS",
     category: "Podstawowe usługi fryzjera",
     options: ["Do ramion", "Do łopatki", "Do pasa"],
@@ -27,7 +27,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 3,
-    image: "ManHaircut.svg",
+    image: "images/services/ManHaircut.svg",
     name: "Strzyżenie męskie",
     category: "Podstawowe usługi fryzjera",
     options: ["Bez mycia", "Mycie, stylizacja", "Oczyszcznie skóry, mycie, stylizacja"],
@@ -35,7 +35,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 4,
-    image: "BangsCut.svg",
+    image: "images/services/BangsCut.svg",
     name: "Obcinanie grzywki",
     category: "Podstawowe usługi fryzjera",
     options: [],
@@ -43,7 +43,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 5,
-    image: "ChildHaircut.svg",
+    image: "images/services/ChildHaircut.svg",
     name: "Strzyżenie dzieci do 7 lat",
     category: "Podstawowe usługi fryzjera",
     options: [],
@@ -51,7 +51,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 6,
-    image: "WomanHaircut.svg",
+    image: "images/services/WomanHaircut.svg",
     name: "Strzyżenie damskie",
     category: "Podstawowe usługi fryzjera",
     options: ["Krótkie-średnie", "Średnie-długie"],
@@ -59,7 +59,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 7,
-    image: "EndsTrimming.svg",
+    image: "images/services/EndsTrimming.svg",
     name: "Podcinanie końcówek maszynką",
     category: "Podstawowe usługi fryzjera",
     options: ["Bez mycia", "Z myciem"],
@@ -67,7 +67,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 8,
-    image: "HairModeling.svg",
+    image: "images/services/HairModeling.svg",
     name: "Modelowanie włosów",
     category: "Podstawowe usługi fryzjera",
     options: [],
@@ -75,7 +75,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 9,
-    image: "HairColoring.svg",
+    image: "images/services/HairColoring.svg",
     name: "Farbowanie włosów (Pasemka, Balojaż)",
     category: "Podstawowe usługi fryzjera",
     options: [],
@@ -83,7 +83,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 10,
-    image: "RegrowthColoring.svg",
+    image: "images/services/RegrowthColoring.svg",
     name: "Farbowanie odrostów (Pasemka, Balojaż)",
     category: "Podstawowe usługi fryzjera",
     options: [],
@@ -91,7 +91,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 11,
-    image: "AirtouchColoring.svg",
+    image: "images/services/AirtouchColoring.svg",
     name: "Farbowanie AirTouch",
     category: "Podstawowe usługi fryzjera",
     options: ["Do ramion", "Do łopatki", "Do pasa"],
@@ -99,7 +99,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 12,
-    image: "ColorfulBath.svg",
+    image: "images/services/ColorfulBath.svg",
     name: "Kolorowa kąpiel",
     category: "Podstawowe usługi fryzjera",
     options: ["Neutralizacja żółtego", "Nadanie niuansowi kolor"],
@@ -107,7 +107,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 13,
-    image: "Toning.svg",
+    image: "images/services/Toning.svg",
     name: "Tonowanie ton w ton i ciemniejszy",
     category: "Podstawowe usługi fryzjera",
     options: ["Do ramion", "Do łopatki", "Do pasa"],
@@ -115,7 +115,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 14,
-    image: "Consulting.svg",
+    image: "images/services/Consulting.svg",
     name: "Konsultacja fryzjera",
     category: "Podstawowe usługi fryzjera",
     options: [],
@@ -123,7 +123,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 15,
-    image: "RegrowthColoringDark.svg",
+    image: "images/services/RegrowthColoringDark.svg",
     name: "Farbowanie odrostów ciemny",
     category: "Podstawowe usługi fryzjera",
     options: ["Krótkie", "Średnie", "Długie"],
@@ -131,7 +131,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 16,
-    image: "RegrowthColoringBlond.svg",
+    image: "images/services/RegrowthColoringBlond.svg",
     name: "Farbowanie odrostów blond",
     category: "Podstawowe usługi fryzjera",
     options: ["Krótkie", "Średnie", "Długie"],
@@ -139,7 +139,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 17,
-    image: "CientDyeColoring.svg",
+    image: "images/services/CientDyeColoring.svg",
     name: "Farbowanie włosów farbą klienta",
     category: "Podstawowe usługi fryzjera",
     options: ["Krótkie", "Średnie", "Długie"],
@@ -147,7 +147,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 18,
-    image: "BIOHairCurling.svg",
+    image: "images/services/BIOHairCurling.svg",
     name: "Kręcenie włosów BIO",
     category: "Trwałe usługi fryzjera",
     options: ["Do ramion", "Do łopatki", "Do pasa"],
@@ -155,7 +155,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 19,
-    image: "BIOHairCurlingMan.svg",
+    image: "images/services/BIOHairCurlingMan.svg",
     name: "Męskie kręcenie włosów BIO",
     category: "Trwałe usługi fryzjera",
     options: [],
@@ -163,7 +163,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 20,
-    image: "RootVolume.svg",
+    image: "images/services/RootVolume.svg",
     name: "Objętość korzenia",
     category: "Trwałe usługi fryzjera",
     options: ["Krótkie włosy", "Do ramion", "Do łopatki", "Do pasa"],
@@ -171,7 +171,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 21,
-    image: "ManicureHybrid.svg",
+    image: "images/services/ManicureHybrid.svg",
     name: "Manicure hybrydowy",
     category: "Usługi manicure",
     options: ["Zwykły", "French"],
@@ -179,7 +179,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 22,
-    image: "Manicure.svg",
+    image: "images/services/Manicure.svg",
     name: "Manicure",
     category: "Usługi manicure",
     options: ["Złykły lakier", "Bez malowania", "Z odżywką"],
@@ -187,7 +187,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 23,
-    image: "NailsFixing.svg",
+    image: "images/services/NailsFixing.svg",
     name: "Naprawa paznokcia",
     category: "Usługi manicure",
     options: [],
@@ -195,7 +195,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 24,
-    image: "Massage.svg",
+    image: "images/services/Massage.svg",
     name: "Masaż dłoni",
     category: "Usługi manicure",
     options: [],
@@ -203,7 +203,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 25,
-    image: "AdditionNailsStr.svg",
+    image: "images/services/AdditionNailsStr.svg",
     name: "Dodatkowe wzmocnienie paznokcia",
     category: "Usługi manicure",
     options: [],
@@ -211,7 +211,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 26,
-    image: "ExpressManicure.svg",
+    image: "images/services/ExpressManicure.svg",
     name: "Express Manicure",
     category: "Usługi manicure",
     options: [],
@@ -219,7 +219,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 27,
-    image: "Pedicure.svg",
+    image: "images/services/Pedicure.svg",
     name: "Pedicure",
     category: "Pedicure",
     options: ["Tylko pięty", "Tylko palce", "Bez malowania", "Zwykły lakier", "Hybrydowy"],
@@ -227,7 +227,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 28,
-    image: "PedicureManicure.svg",
+    image: "images/services/PedicureManicure.svg",
     name: "Pedicure + manicure",
     category: "Pedicure",
     options: [],
@@ -235,7 +235,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 29,
-    image: "LightTherapy.svg",
+    image: "images/services/LightTherapy.svg",
     name: "Światłoterapia",
     category: "Terapia światłem oraz fotoodmładzanie",
     options: ["10 minut", "100 minut"],
@@ -243,7 +243,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 30,
-    image: "Photorejuvenation.svg",
+    image: "images/services/Photorejuvenation.svg",
     name: "Fotoodmładzanie",
     category: "Terapia światłem oraz fotoodmładzanie",
     options: ["1 zabieg", "5 zabiegów"],

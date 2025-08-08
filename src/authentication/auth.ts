@@ -12,11 +12,9 @@ adminRouter.post("/login", (req, res) => {
   const adminPass = process.env.ADMIN_PASSWORD;
 
   if (login !== adminLog || password !== adminPass) {
-    console.log("Oups");
     return res.status(401).json({ error: "Dziś nie srasz" });
   }
 
-  console.log("Work well");
 
   const token = jwt.sign(
     {

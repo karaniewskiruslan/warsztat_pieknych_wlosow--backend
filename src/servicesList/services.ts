@@ -2,7 +2,11 @@ import express, { Request } from "express";
 import dotenv from "dotenv";
 import { Services } from "../types/services.type";
 import { servicesList } from "../initialData/services.data";
-import multer from "multer";
+import { serviceImageUpload } from "../image-uploads/image-uploads";
+import { imagesServiceSchema } from "../image-uploads/validate";
+import { v4 as uId } from "uuid";
+import path from "path";
+import { unlink, writeFile } from "fs/promises";
 
 dotenv.config();
 const servicesRouter = express.Router();
@@ -11,21 +15,22 @@ const generateId = (): number => {
   return servicesList.length ? Math.max(...servicesList.map((s) => s.id)) + 1 : 1;
 };
 
-const storage = multer.diskStorage({
-  destination: (_req, _file, cb) => {
-    cb(null, "images/services");
-  },
-  filename: (_req, file, cb) => {
-    cb(null, `${file.originalname}-${generateId()}`);
-  },
-});
-const upload = multer({ storage });
+const getImageUrl = (req: Request, imageName: string) => {
+  return imageName.startsWith(req.protocol)
+    ? imageName.replaceAll("\\", "/")
+    : `${req.protocol}://${req.get("host")}/${imageName}`.replaceAll("\\", "/");
+};
 
-const getImageUrl = (req: Request, imageName: string) =>
-  `${req.protocol}://${req.get("host")}/images/services/${imageName}`;
+const responseService = (req: Request, arr: Services[]) => {
+  const aaa = arr.map((el) => ({ ...el, image: getImageUrl(req, el.image) }));
+
+  console.log(aaa);
+
+  return aaa;
+};
 
 servicesRouter.get("/services", (req, res) => {
-  const mapped = servicesList.map((el) => ({ ...el, image: getImageUrl(req, el.image) }));
+  const mapped = responseService(req, servicesList);
 
   res.status(200).json(mapped);
 });
@@ -43,24 +48,39 @@ servicesRouter.get("/services/:id", (req, res) => {
     image: getImageUrl(req, findedService.image),
   };
 
-  res.status(200).json(responseService);
+  return res.status(200).json(responseService);
 });
 
-servicesRouter.post("/services/", upload.single("image"), (req, res) => {
+servicesRouter.post("/services", serviceImageUpload.single("image"), async (req, res) => {
   const { name, category, options, cost } = req.body;
+  const file = req.file;
 
-  if (!name || !category || !Array.isArray(options)) {
-    return res.status(400).json({ error: "Invalid service data" });
-  }
-  const newId = generateId();
-  const newService: Services = { id: newId, name, image: req.file?.filename!, category, options, cost };
+  if (!file) return res.status(400).json({ error: "File not founded" });
+
+  const result = await imagesServiceSchema.validate(file);
+
+  if (!result) return res.status(400).send({ error: "File are not proper format" });
+
+  const uniqueFilename = `${uId()}-${file.originalname.replace(/\s+/g, "_")}`;
+  const filePath = path.join("images", "services", uniqueFilename);
+
+  await writeFile(filePath, file.buffer);
+
+  const newService: Services = {
+    id: generateId(),
+    name,
+    image: getImageUrl(req, filePath),
+    category,
+    options: options ? JSON.parse(options) : [],
+    cost: JSON.parse(cost),
+  };
 
   servicesList.push(newService);
 
-  res.status(201).json(newService);
+  return res.status(201).json(newService);
 });
 
-servicesRouter.put("/services/:id", upload.single("image"), (req, res) => {
+servicesRouter.put("/services/:id", serviceImageUpload.single("image"), async (req, res) => {
   const id = +req.params.id;
   const { name, category, options, cost } = req.body;
   const updatedService = servicesList.find((el) => el.id === id);
@@ -69,18 +89,41 @@ servicesRouter.put("/services/:id", upload.single("image"), (req, res) => {
     return res.status(404).json({ error: "Service not found" });
   }
 
-  Object.assign(updatedService, {
-    name,
-    image: req.file ? req.file?.filename : updatedService.image,
-    category,
-    options,
-    cost,
-  });
+  const newFile = req.file;
+  const result = await imagesServiceSchema.validate(newFile);
 
-  res.status(200).json(updatedService);
+  if (!result) return res.status(400).send({ error: "File are not proper format" });
+
+  try {
+    if (updatedService.image.startsWith(`${req.protocol}://${req.get("host")}/images/services/`)) {
+      const oldPath = path.join(
+        process.cwd(),
+        updatedService.image.replace(`${req.protocol}://${req.get("host")}/`, "")
+      );
+      await unlink(oldPath);
+    }
+  } catch (e) {
+    console.warn("Failed to delete old image:", e);
+  }
+
+  if (newFile) {
+    const filename = `${uId()}-${newFile.originalname.replace(/\s+/g, "_")}`;
+    const newImagePath = path.join("images", "services", filename);
+    await writeFile(newImagePath, newFile.buffer);
+
+    Object.assign(updatedService, {
+      name,
+      image: getImageUrl(req, newImagePath),
+      category,
+      options: options ? JSON.parse(options) : [],
+      cost: JSON.parse(cost),
+    });
+  }
+
+  return res.status(200).json(updatedService);
 });
 
-servicesRouter.delete("/services/:id", (req, res) => {
+servicesRouter.delete("/services/:id", async (req, res) => {
   const id = +req.params.id;
   const index = servicesList.findIndex((el) => el.id === id);
 
@@ -88,8 +131,23 @@ servicesRouter.delete("/services/:id", (req, res) => {
     return res.status(404).json({ error: "Service not found" });
   }
 
+  try {
+    if (servicesList[index].image.startsWith(`${req.protocol}://${req.get("host")}/images/services/`)) {
+      const filePath = path.join(
+        process.cwd(),
+        servicesList[index].image.replace(`${req.protocol}://${req.get("host")}/`, "")
+      );
+
+      await unlink(filePath);
+    }
+  } catch (e) {
+    console.warn("Failed to delete old image:", e);
+  }
+
   servicesList.splice(index, 1);
-  res.status(200).json(servicesList);
+  const mapped = responseService(req, servicesList);
+
+  return res.status(200).json(mapped);
 });
 
 export default servicesRouter;
