@@ -22,11 +22,9 @@ const getImageUrl = (req: Request, imageName: string) => {
 };
 
 const responseService = (req: Request, arr: Services[]) => {
-  const aaa = arr.map((el) => ({ ...el, image: getImageUrl(req, el.image) }));
+  const finalList = arr.map((el) => ({ ...el, image: getImageUrl(req, el.image) }));
 
-  console.log(aaa);
-
-  return aaa;
+  return finalList;
 };
 
 servicesRouter.get("/services", (req, res) => {

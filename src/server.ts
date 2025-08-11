@@ -3,8 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import adminRouter from "./authentication/auth";
 import servicesRouter from "./servicesList/services";
-import { imagesServiceSchema } from "./image-uploads/validate";
-import { serviceImageUpload } from "./image-uploads/image-uploads";
+import bookingRouter from "./bookingList/booking";
 
 dotenv.config();
 
@@ -16,6 +15,7 @@ app.use(express.json());
 
 app.use("/api", adminRouter);
 app.use("/api", servicesRouter);
+app.use("/api", bookingRouter);
 app.use("/images/", express.static("images"));
 
 app.get("/", (_req, res) => {
