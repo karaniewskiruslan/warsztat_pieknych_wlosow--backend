@@ -33,22 +33,6 @@ servicesRouter.get("/services", (req, res) => {
   res.status(200).json(mapped);
 });
 
-servicesRouter.get("/services/:id", (req, res) => {
-  const id: number = +req.params.id;
-  const findedService = servicesList.find((el) => el.id === id);
-
-  if (!findedService) {
-    return res.status(404).json({ error: "Service not found" });
-  }
-
-  const responseService = {
-    ...findedService,
-    image: getImageUrl(req, findedService.image),
-  };
-
-  return res.status(200).json(responseService);
-});
-
 servicesRouter.post("/services", serviceImageUpload.single("image"), async (req, res) => {
   const { name, category, options, cost } = req.body;
   const file = req.file;
@@ -88,35 +72,39 @@ servicesRouter.put("/services/:id", serviceImageUpload.single("image"), async (r
   }
 
   const newFile = req.file;
-  const result = await imagesServiceSchema.validate(newFile);
-
-  if (!result) return res.status(400).send({ error: "File are not proper format" });
-
-  try {
-    if (updatedService.image.startsWith(`${req.protocol}://${req.get("host")}/images/services/`)) {
-      const oldPath = path.join(
-        process.cwd(),
-        updatedService.image.replace(`${req.protocol}://${req.get("host")}/`, "")
-      );
-      await unlink(oldPath);
-    }
-  } catch (e) {
-    console.warn("Failed to delete old image:", e);
-  }
 
   if (newFile) {
+    const result = await imagesServiceSchema.validate(newFile);
+    if (!result) {
+      return res.status(400).send({ error: "File is not in the proper format" });
+    }
+
+    try {
+      if (updatedService.image?.startsWith(`${req.protocol}://${req.get("host")}/images/services/`)) {
+        const oldPath = path.join(
+          process.cwd(),
+          updatedService.image.replace(`${req.protocol}://${req.get("host")}/`, "")
+        );
+        await unlink(oldPath);
+      }
+    } catch (e) {
+      console.warn("Failed to delete old image:", e);
+    }
+
     const filename = `${uId()}-${newFile.originalname.replace(/\s+/g, "_")}`;
     const newImagePath = path.join("images", "services", filename);
     await writeFile(newImagePath, newFile.buffer);
 
-    Object.assign(updatedService, {
-      name,
-      image: getImageUrl(req, newImagePath),
-      category,
-      options: options ? JSON.parse(options) : [],
-      cost: JSON.parse(cost),
-    });
+    updatedService.image = getImageUrl(req, newImagePath);
   }
+
+  Object.assign(updatedService, {
+    name,
+    image: getImageUrl(req, updatedService.image),
+    category,
+    options: options ? JSON.parse(options) : [],
+    cost: JSON.parse(cost),
+  });
 
   return res.status(200).json(updatedService);
 });
