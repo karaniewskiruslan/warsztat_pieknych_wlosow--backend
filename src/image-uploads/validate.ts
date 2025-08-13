@@ -6,7 +6,7 @@ export const imagesServiceSchema = yup
   .test("valid-image", "The uploaded file is not a valid image", async (file) => {
     if (!file) return true;
     const result = await validateBufferMIMEType(file.buffer, {
-      allowMimeTypes: ["image/png", "image/jpeg", "image/jpg", "image/webp", "image/svg"],
+      allowMimeTypes: ["image/png", "image/jpeg", "image/jpg", "image/webp", "image/svg+xml"],
     });
     return result.ok;
   });

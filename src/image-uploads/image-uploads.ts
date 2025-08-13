@@ -8,10 +8,8 @@ export const serviceImageUpload = multer({
   },
   fileFilter: (_req, file, cb) => {
     if (
-      file.mimetype === "image/png" ||
-      file.mimetype === "image/jpeg" ||
-      file.mimetype === "image/webp" ||
-      file.mimetype === "image/svg"
+      file.mimetype.startsWith("image/") &&
+      ["png", "jpeg", "webp", "svg+xml"].some((type) => file.mimetype.endsWith(type))
     ) {
       cb(null, true);
     } else {
