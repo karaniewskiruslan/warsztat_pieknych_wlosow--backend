@@ -4,6 +4,7 @@ export type Services = {
   name: string;
   options: string[];
   category: string;
+  masters: string[];
   last: number;
   cost: number | number[];
 };
