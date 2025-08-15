@@ -5,5 +5,6 @@ export type Booking = {
   service: string;
   master: string;
   date: Date;
+  last: number;
   isConfirmed: boolean;
 };

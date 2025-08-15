@@ -2,7 +2,7 @@ import express, { Request } from "express";
 import dotenv from "dotenv";
 import { Services } from "../types/services.type";
 import { servicesList } from "../initialData/services.data";
-import { serviceImageUpload } from "../image-uploads/image-uploads";
+import { serviceImageUpload } from "../image-uploads/imageUploads";
 import { imagesServiceSchema } from "../image-uploads/validate";
 import { v4 as uId } from "uuid";
 import path from "path";
@@ -34,7 +34,7 @@ servicesRouter.get("/services", (req, res) => {
 });
 
 servicesRouter.post("/services", serviceImageUpload.single("image"), async (req, res) => {
-  const { name, category, options, cost } = req.body;
+  const { name, category, last, options, cost } = req.body;
   const file = req.file;
 
   if (!file) return res.status(400).json({ error: "File not founded" });
@@ -53,6 +53,7 @@ servicesRouter.post("/services", serviceImageUpload.single("image"), async (req,
     name,
     image: getImageUrl(req, filePath),
     category,
+    last: JSON.parse(last),
     options: options ? JSON.parse(options) : [],
     cost: JSON.parse(cost),
   };
@@ -64,7 +65,7 @@ servicesRouter.post("/services", serviceImageUpload.single("image"), async (req,
 
 servicesRouter.put("/services/:id", serviceImageUpload.single("image"), async (req, res) => {
   const id = +req.params.id;
-  const { name, category, options, cost } = req.body;
+  const { name, category, last, options, cost } = req.body;
   const updatedService = servicesList.find((el) => el.id === id);
 
   if (!updatedService) {
@@ -102,6 +103,7 @@ servicesRouter.put("/services/:id", serviceImageUpload.single("image"), async (r
     name,
     image: getImageUrl(req, updatedService.image),
     category,
+    last: JSON.parse(last),
     options: options ? JSON.parse(options) : [],
     cost: JSON.parse(cost),
   });

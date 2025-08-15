@@ -14,13 +14,14 @@ bookingRouter.get("/booking", (_, res) => {
 });
 
 bookingRouter.post("/booking", async (req, res) => {
-  const { fullName, email, service, master, date } = req.body;
+  const { fullName, email, service, last, master, date } = req.body;
 
   const newBooking: Booking = {
     id: uId(),
     fullName: fullName.trim(),
     email: email.trim(),
     service,
+    last,
     master,
     date,
     isConfirmed: false,
