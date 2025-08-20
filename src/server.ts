@@ -2,8 +2,9 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import adminRouter from "./authentication/auth";
-import servicesRouter from "./servicesList/services";
-import bookingRouter from "./bookingList/booking";
+import servicesRouter from "./data/servicesList/services";
+import bookingRouter from "./data/booking/booking";
+import mastersRouter from "./data/masters/masters";
 
 dotenv.config();
 
@@ -16,6 +17,7 @@ app.use(express.json());
 app.use("/api", adminRouter);
 app.use("/api", servicesRouter);
 app.use("/api", bookingRouter);
+app.use("/api", mastersRouter);
 app.use("/images/", express.static("images"));
 
 app.get("/", (_req, res) => {

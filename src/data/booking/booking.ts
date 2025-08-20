@@ -1,8 +1,8 @@
 import dotenv from "dotenv";
 import express from "express";
-import { Booking } from "../types/booking.type";
+import { Booking } from "../../types/booking.type";
 import { v4 as uId } from "uuid";
-import { transporter } from "../mailer/mailerInit";
+import { transporter } from "../../mailer/mailerInit";
 
 dotenv.config();
 const bookingRouter = express.Router();

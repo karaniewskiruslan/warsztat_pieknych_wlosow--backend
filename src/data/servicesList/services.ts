@@ -1,30 +1,19 @@
-import express, { Request } from "express";
+import express from "express";
 import dotenv from "dotenv";
-import { Services } from "../types/services.type";
-import { servicesList } from "../initialData/services.data";
-import { serviceImageUpload } from "../image-uploads/imageUploads";
-import { imagesServiceSchema } from "../image-uploads/validate";
+import { Services } from "../../types/services.type";
+import { servicesList } from "../../initialData/services.data";
+import { serviceImageUpload } from "../../image-uploads/imageUploads";
+import { imagesServiceSchema } from "../../image-uploads/validate";
 import { v4 as uId } from "uuid";
 import path from "path";
 import { unlink, writeFile } from "fs/promises";
+import { getImageUrl, responseService } from "../../helpers/helpers";
 
 dotenv.config();
 const servicesRouter = express.Router();
 
 const generateId = (): number => {
   return servicesList.length ? Math.max(...servicesList.map((s) => s.id)) + 1 : 1;
-};
-
-const getImageUrl = (req: Request, imageName: string) => {
-  return imageName.startsWith(req.protocol)
-    ? imageName.replaceAll("\\", "/")
-    : `${req.protocol}://${req.get("host")}/${imageName}`.replaceAll("\\", "/");
-};
-
-const responseService = (req: Request, arr: Services[]) => {
-  const finalList = arr.map((el) => ({ ...el, image: getImageUrl(req, el.image) }));
-
-  return finalList;
 };
 
 servicesRouter.get("/services", (req, res) => {
