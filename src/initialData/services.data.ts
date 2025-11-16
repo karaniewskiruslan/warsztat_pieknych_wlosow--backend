@@ -1,9 +1,11 @@
+import { getImageUrl } from "../helpers/helpers";
 import { Services } from "../types/services.type";
+import { Request } from "express";
 
-export const servicesList: Services[] = [
+export const servicesList = (req: Request): Services[] => [
   {
     id: 0,
-    image: "images/services/HairSkinPeeling.svg",
+    image: getImageUrl(req, "images/services/HairSkinPeeling.svg"),
     name: "Peeling skóry włosów",
     category: "Podstawowe usługi fryzjera",
     last: 2,
@@ -13,7 +15,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 1,
-    image: "images/services/HairLamination.svg",
+    image: getImageUrl(req, "images/services/HairLamination.svg"),
     name: "Laminowanie włosów",
     category: "Podstawowe usługi fryzjera",
     options: ["Do ramion", "Do łopatki", "Do pasa"],
@@ -23,7 +25,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 2,
-    image: "images/services/UrgentHairRestoration.svg",
+    image: getImageUrl(req, "images/services/UrgentHairRestoration.svg"),
     name: "Odbudowa włosów SOS",
     category: "Podstawowe usługi fryzjera",
     masters: ["Natalia"],
@@ -33,7 +35,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 3,
-    image: "images/services/ManHaircut.svg",
+    image: getImageUrl(req, "images/services/ManHaircut.svg"),
     name: "Strzyżenie męskie",
     category: "Podstawowe usługi fryzjera",
     masters: ["Natalia"],
@@ -43,7 +45,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 4,
-    image: "images/services/BangsCut.svg",
+    image: getImageUrl(req, "images/services/BangsCut.svg"),
     name: "Obcinanie grzywki",
     category: "Podstawowe usługi fryzjera",
     masters: ["Natalia"],
@@ -53,7 +55,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 5,
-    image: "images/services/ChildHaircut.svg",
+    image: getImageUrl(req, "images/services/ChildHaircut.svg"),
     name: "Strzyżenie dzieci do 7 lat",
     category: "Podstawowe usługi fryzjera",
     masters: ["Natalia"],
@@ -63,7 +65,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 6,
-    image: "images/services/WomanHaircut.svg",
+    image: getImageUrl(req, "images/services/WomanHaircut.svg"),
     name: "Strzyżenie damskie",
     category: "Podstawowe usługi fryzjera",
     masters: ["Natalia"],
@@ -73,7 +75,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 7,
-    image: "images/services/EndsTrimming.svg",
+    image: getImageUrl(req, "images/services/EndsTrimming.svg"),
     name: "Podcinanie końcówek maszynką",
     category: "Podstawowe usługi fryzjera",
     masters: ["Natalia"],
@@ -83,7 +85,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 8,
-    image: "images/services/HairModeling.svg",
+    image: getImageUrl(req, "images/services/HairModeling.svg"),
     name: "Modelowanie włosów",
     category: "Podstawowe usługi fryzjera",
     masters: ["Natalia"],
@@ -93,7 +95,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 9,
-    image: "images/services/HairColoring.svg",
+    image: getImageUrl(req, "images/services/HairColoring.svg"),
     name: "Farbowanie włosów (Pasemka, Balojaż)",
     category: "Podstawowe usługi fryzjera",
     masters: ["Natalia"],
@@ -103,7 +105,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 10,
-    image: "images/services/RegrowthColoring.svg",
+    image: getImageUrl(req, "images/services/RegrowthColoring.svg"),
     name: "Farbowanie odrostów (Pasemka, Balojaż)",
     category: "Podstawowe usługi fryzjera",
     masters: ["Natalia"],
@@ -113,7 +115,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 11,
-    image: "images/services/AirtouchColoring.svg",
+    image: getImageUrl(req, "images/services/AirtouchColoring.svg"),
     name: "Farbowanie AirTouch",
     category: "Podstawowe usługi fryzjera",
     masters: ["Natalia"],
@@ -123,7 +125,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 12,
-    image: "images/services/ColorfulBath.svg",
+    image: getImageUrl(req, "images/services/ColorfulBath.svg"),
     name: "Kolorowa kąpiel",
     category: "Podstawowe usługi fryzjera",
     masters: ["Natalia"],
@@ -133,7 +135,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 13,
-    image: "images/services/Toning.svg",
+    image: getImageUrl(req, "images/services/Toning.svg"),
     name: "Tonowanie ton w ton i ciemniejszy",
     masters: ["Natalia"],
     last: 6,
@@ -143,7 +145,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 14,
-    image: "images/services/Consulting.svg",
+    image: getImageUrl(req, "images/services/Consulting.svg"),
     name: "Konsultacja fryzjera",
     masters: ["Natalia"],
     last: 0,
@@ -153,7 +155,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 15,
-    image: "images/services/RegrowthColoringDark.svg",
+    image: getImageUrl(req, "images/services/RegrowthColoringDark.svg"),
     name: "Farbowanie odrostów ciemny",
     category: "Podstawowe usługi fryzjera",
     masters: ["Natalia"],
@@ -163,7 +165,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 16,
-    image: "images/services/RegrowthColoringBlond.svg",
+    image: getImageUrl(req, "images/services/RegrowthColoringBlond.svg"),
     name: "Farbowanie odrostów blond",
     category: "Podstawowe usługi fryzjera",
     masters: ["Natalia"],
@@ -173,7 +175,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 17,
-    image: "images/services/CientDyeColoring.svg",
+    image: getImageUrl(req, "images/services/CientDyeColoring.svg"),
     name: "Farbowanie włosów farbą klienta",
     category: "Podstawowe usługi fryzjera",
     masters: ["Natalia"],
@@ -183,7 +185,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 18,
-    image: "images/services/BIOHairCurling.svg",
+    image: getImageUrl(req, "images/services/BIOHairCurling.svg"),
     name: "Kręcenie włosów BIO",
     category: "Trwałe usługi fryzjera",
     masters: ["Natalia"],
@@ -193,7 +195,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 19,
-    image: "images/services/BIOHairCurlingMan.svg",
+    image: getImageUrl(req, "images/services/BIOHairCurlingMan.svg"),
     name: "Męskie kręcenie włosów BIO",
     category: "Trwałe usługi fryzjera",
     masters: ["Natalia"],
@@ -203,7 +205,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 20,
-    image: "images/services/RootVolume.svg",
+    image: getImageUrl(req, "images/services/RootVolume.svg"),
     name: "Objętość korzenia",
     category: "Trwałe usługi fryzjera",
     masters: ["Natalia"],
@@ -213,7 +215,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 21,
-    image: "images/services/ManicureHybrid.svg",
+    image: getImageUrl(req, "images/services/ManicureHybrid.svg"),
     name: "Manicure hybrydowy",
     category: "Usługi manicure",
     masters: ["Waleria"],
@@ -223,7 +225,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 22,
-    image: "images/services/Manicure.svg",
+    image: getImageUrl(req, "images/services/Manicure.svg"),
     name: "Manicure",
     category: "Usługi manicure",
     masters: ["Waleria"],
@@ -233,7 +235,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 23,
-    image: "images/services/NailsFixing.svg",
+    image: getImageUrl(req, "images/services/NailsFixing.svg"),
     name: "Naprawa paznokcia",
     category: "Usługi manicure",
     masters: ["Waleria"],
@@ -243,7 +245,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 24,
-    image: "images/services/Massage.svg",
+    image: getImageUrl(req, "images/services/Massage.svg"),
     name: "Masaż dłoni",
     category: "Usługi manicure",
     masters: ["Waleria"],
@@ -253,7 +255,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 25,
-    image: "images/services/AdditionNailsStr.svg",
+    image: getImageUrl(req, "images/services/AdditionNailsStr.svg"),
     name: "Dodatkowe wzmocnienie paznokcia",
     category: "Usługi manicure",
     masters: ["Waleria"],
@@ -263,7 +265,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 26,
-    image: "images/services/ExpressManicure.svg",
+    image: getImageUrl(req, "images/services/ExpressManicure.svg"),
     name: "Express Manicure",
     category: "Usługi manicure",
     masters: ["Waleria"],
@@ -273,7 +275,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 27,
-    image: "images/services/Pedicure.svg",
+    image: getImageUrl(req, "images/services/Pedicure.svg"),
     name: "Pedicure",
     category: "Pedicure",
     masters: ["Waleria"],
@@ -283,7 +285,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 28,
-    image: "images/services/PedicureManicure.svg",
+    image: getImageUrl(req, "images/services/PedicureManicure.svg"),
     name: "Pedicure + manicure",
     category: "Pedicure",
     masters: ["Waleria"],
@@ -293,7 +295,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 29,
-    image: "images/services/LightTherapy.svg",
+    image: getImageUrl(req, "images/services/LightTherapy.svg"),
     name: "Światłoterapia",
     category: "Terapia światłem oraz fotoodmładzanie",
     masters: ["Waleria"],
@@ -303,7 +305,7 @@ export const servicesList: Services[] = [
   },
   {
     id: 30,
-    image: "images/services/Photorejuvenation.svg",
+    image: getImageUrl(req, "images/services/Photorejuvenation.svg"),
     name: "Fotoodmładzanie",
     category: "Terapia światłem oraz fotoodmładzanie",
     masters: ["Waleria"],

@@ -9,7 +9,7 @@ export const getImageUrl = (req: Request, imageName: string) => {
 };
 
 export const responseService = <T extends Services | MasterType>(req: Request, arr: T[]) => {
-  const finalList = arr.map((el) => ({ ...el, image: getImageUrl(req, el.image) }));
+  const finalList = arr.map((el) => ({ ...el, image: getImageUrl(req, el.image),  }));
 
   return finalList;
 };

@@ -1,10 +1,10 @@
-import express from "express";
-import cors from "cors";
-import dotenv from "dotenv";
-import adminRouter from "./authentication/auth";
-import servicesRouter from "./data/servicesList/services";
-import bookingRouter from "./data/booking/booking";
-import mastersRouter from "./data/masters/masters";
+import express from 'express';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import adminRouter from './authentication/auth';
+import servicesRouter from './data/masters/servicesList/services';
+import bookingRouter from './data/booking/booking';
+import mastersRouter from './data/masters/masters';
 
 dotenv.config();
 
@@ -14,14 +14,14 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-app.use("/api", adminRouter);
-app.use("/api", servicesRouter);
-app.use("/api", bookingRouter);
-app.use("/api", mastersRouter);
-app.use("/images/", express.static("images"));
+app.use('/api', adminRouter);
+app.use('/api', servicesRouter);
+app.use('/api', bookingRouter);
+app.use('/api', mastersRouter);
+app.use('/images/', express.static('images'));
 
-app.get("/", (_req, res) => {
-  res.send("Witaj w Warsztata Pięknych włosów, część serwerowa");
+app.get('/', (_req, res) => {
+  res.send('Witaj w Warsztata Pięknych włosów, część serwerowa');
 });
 
 app.listen(PORT, () => {
