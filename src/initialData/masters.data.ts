@@ -4,7 +4,7 @@ import { Request } from "express";
 
 export const mastersInfo = (req: Request): MasterType[] => [
   {
-    id: 0,
+    _id: 0,
     name: "Natalia",
     image: getImageUrl(req, "images/masters/Natalia/frontImage.webp"),
     profession: "Fryzier",
@@ -23,7 +23,7 @@ export const mastersInfo = (req: Request): MasterType[] => [
     masterPhoto: getImageUrl(req, "images/masters/Natalia/Natalia.webp"),
   },
   {
-    id: 1,
+    _id: 1,
     name: "Waleria",
     image: getImageUrl(req, "images/masters/Waleria/frontImage.webp"),
     profession: "Manicure | Pedicure",

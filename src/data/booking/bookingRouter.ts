@@ -3,21 +3,27 @@ import express from 'express';
 import { v4 as uId } from 'uuid';
 import { Booking } from '../../types/booking.type';
 import { transporter } from '../../mailer/mailerInit';
+import db from '../../mongodb/init';
 
 dotenv.config();
 const bookingRouter = express.Router();
 
-const bookingList: Booking[] = [];
+bookingRouter.get('/booking', async (_, res) => {
+  try {
+    const collection = db.collection<Booking>('bookingList');
+    const result = await collection.find({}).toArray();
 
-bookingRouter.get('/booking', (_, res) => {
-  res.status(200).send(bookingList);
+    res.status(200).json(result);
+  } catch (err) {
+    res.status(500).send({ error: 'Internal server error.' });
+  }
 });
 
 bookingRouter.post('/booking', async (req, res) => {
   const { fullName, email, service, last, master, date } = req.body;
 
   const newBooking: Booking = {
-    id: uId(),
+    _id: uId(),
     fullName: fullName.trim(),
     email: email.trim(),
     service,
@@ -27,62 +33,62 @@ bookingRouter.post('/booking', async (req, res) => {
     isConfirmed: false,
   };
 
-  bookingList.push(newBooking);
-
   try {
+    const collection = db.collection<Booking>('bookingList');
+    const result = await collection.insertOne(newBooking);
+
     await transporter.sendMail({
       from: `"Warsztat pięknych włosów" <${process.env.TEST_EMAIL}>`,
       to: `${newBooking.fullName} <${newBooking.email}>`,
-      subject: `Rezerwacja wizyty ${newBooking.id.slice(0, 8)}`,
+      subject: `Rezerwacja wizyty ${newBooking._id.slice(0, 8)}`,
       text: `Cześć, ${newBooking.fullName}.
       Twoja wizyta została zapisana. Czekaj na jej potwierdzenie ze strony admina`,
     });
 
-    res.status(201).send(newBooking);
+    return res.status(201).json(result);
   } catch (err) {
-    console.error('Błąd wysyłki emaila:', err);
-    res.status(201).send({
-      ...newBooking,
-      emailError: 'Nie udało się wysłać potwierdzenia na email',
-    });
+    res.status(400).send({ error: 'Adding item error: ' + err });
   }
 });
 
 bookingRouter.put('/booking/:id', async (req, res) => {
   const id = req.params.id;
   const { isConfirmed } = req.body;
-  const editedBooking = bookingList.find((el) => el.id === id)!;
-
-  Object.assign(editedBooking, {
-    isConfirmed: isConfirmed,
-  });
 
   try {
+    const collection = db.collection<Booking>('bookingList');
+    const result = await collection.updateOne({ _id: id }, { $set: { isConfirmed } });
+    const editedBooking = await collection.findOne({ _id: id });
+
+    if (!editedBooking) {
+      return res.status(404).send({ error: 'Booking not found' });
+    }
+
     await transporter.sendMail({
       from: `"Warsztat pięknych włosów" <${process.env.TEST_EMAIL}>`,
       to: `${editedBooking.fullName} <${editedBooking.email}>`,
-      subject: `Wizyta ${editedBooking.id.slice(0, 8)} została potwierdzona`,
+      subject: `Wizyta ${editedBooking._id.slice(0, 8)} została potwierdzona`,
       text: `Cześć, ${editedBooking.fullName}.
       Twoja wizyta została zaakceptowana`,
     });
 
-    res.status(200).send(editedBooking);
-  } catch (e) {
-    console.error('Błąd wysyłki emaila:', e);
-    res.status(200).send({
-      ...editedBooking,
-      emailError: 'Nie udało się wysłać akceptacji na email',
-    });
+    return res.status(200).json(result);
+  } catch (err) {
+    res.status(400).send({ error: 'Update item error: ' + err });
   }
 });
 
-bookingRouter.delete('/booking/:id', (req, res) => {
+bookingRouter.delete('/booking/:id', async (req, res) => {
   const id = req.params.id;
-  const index = bookingList.findIndex((el) => el.id === id);
 
-  bookingList.splice(index, 1);
+  try {
+    const collection = db.collection<Booking>('bookingList');
+    const result = await collection.deleteOne({ _id: id });
 
-  res.status(200).send(bookingList);
+    return res.status(200).json(result);
+  } catch (err) {
+    res.status(400).json({ error: 'Delete item error: ' + err });
+  }
 });
 
 export default bookingRouter;

@@ -1,5 +1,5 @@
 export type MasterType = {
-  id: number;
+  _id: number;
   name: string;
   image: string;
   profession: string;

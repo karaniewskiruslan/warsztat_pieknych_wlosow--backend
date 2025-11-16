@@ -1,40 +1,29 @@
 import dotenv from 'dotenv';
 import express, { Request } from 'express';
 import { Services } from '../../types/services.type';
-import { servicesList } from '../../initialData/services.data';
 import { serviceImageUpload } from '../../image-uploads/imageUploads';
-import { imagesServiceSchema } from '../../image-uploads/validate';
 import { v4 as uId } from 'uuid';
 import path from 'path';
 import { unlink, writeFile } from 'fs/promises';
-import { getImageUrl, responseService } from '../../helpers/helpers';
+import { getImageUrl } from '../../helpers/helpers';
 import db from '../../mongodb/init';
 
 dotenv.config();
 const servicesRouter = express.Router();
 
-const generateId = (req: Request): number => {
-  return servicesList(req).length ? Math.max(...servicesList(req).map((s) => s._id)) + 1 : 1;
-};
-
-servicesRouter.get('/services', async (req, res) => {
+servicesRouter.get('/services', async (_req, res) => {
   try {
     const collection = db.collection<Services>('serviceList');
     const result = await collection.find({}).toArray();
 
-    if (!result || result.length === 0) {
-      return res.status(404).send({ error: 'No services found in database.' });
-    }
-
     res.status(200).json(result);
   } catch (err) {
-    console.error('Error fetching services:', err);
     res.status(500).send({ error: 'Internal server error.' });
   }
 });
 
 servicesRouter.post('/services', serviceImageUpload.single('image'), async (req, res) => {
-  const { name, category, masters, last, options, cost } = req.body;
+  const { name, category, masters, last, options, cost, image } = req.body;
   const file = req.file;
 
   if (!file) return res.status(400).json({ error: 'File not founded' });
@@ -43,8 +32,11 @@ servicesRouter.post('/services', serviceImageUpload.single('image'), async (req,
     const uniqueFilename = `${uId()}-${file.originalname.replace(/\s+/g, '_')}`;
     const filePath = path.join('images', 'services', uniqueFilename);
 
+    const collection = db.collection<Services>('serviceList');
+    const newArray = await collection.find({}).toArray();
+
     const newService: Services = {
-      _id: generateId(req),
+      _id: newArray.length + 1,
       name,
       image: getImageUrl(req, filePath),
       category,
@@ -54,7 +46,6 @@ servicesRouter.post('/services', serviceImageUpload.single('image'), async (req,
       cost: JSON.parse(cost),
     };
 
-    const collection = db.collection<Services>('serviceList');
     const result = await collection.insertOne(newService);
 
     return res.status(201).json(result);
