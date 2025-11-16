@@ -10,15 +10,18 @@ const client = new MongoClient(uri, {
   },
 });
 
-try {
-  await client.connect();
+const initMongo = async () => {
+  try {
+    await client.connect();
+    await client.db('admin').command({ ping: 1 });
+    console.log('✅ Connected to MongoDB Atlas');
+  } catch (err) {
+    console.error('❌ MongoDB connection error:', err);
+  }
+};
 
-  await client.db('admin').command({ ping: 1 });
-  console.log('Pinged your deployment. You successfully connected to MongoDB!');
-} finally {
-  await client.close();
-}
+initMongo();
 
-const db = client.db('services');
+const db = client.db('Services');
 
 export default db;

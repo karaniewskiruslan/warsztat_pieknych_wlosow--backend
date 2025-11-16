@@ -13,6 +13,7 @@
   "license": "ISC",
   "author": "karanelus",
   "type": "commonjs",
+  "module": "es2022",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 import express from 'express';
-import { Booking } from '../../types/booking.type';
 import { v4 as uId } from 'uuid';
+import { Booking } from '../../types/booking.type';
 import { transporter } from '../../mailer/mailerInit';
 
 dotenv.config();

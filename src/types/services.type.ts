@@ -1,5 +1,5 @@
 export type Services = {
-  id: number;
+  _id: number;
   image: string;
   name: string;
   options: string[];
