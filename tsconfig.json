@@ -2,12 +2,22 @@
   "compilerOptions": {
     "target": "es2024",
     "module": "commonjs",
-    "rootDir": "src",
+    "rootDir": ".",
     "outDir": "dist",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "baseUrl": "src",
+    "paths": {
+      "@config/*": ["../config/*"],
+      "@helpers/*": ["./helpers/*"],
+      "@images/*": ["../images/*"],
+      "@imageUpload/*": ["./image-uploads/*"],
+      "@models/*": ["./types/*"],
+      "@data/*": ["./data/*"],
+      "@mailer/*": ["./mailer/*"]
+    }
   },
-  "include": ["src/**/*", "src/mongodb"]
+  "include": ["src/**/*", "src/mongodb", "config/mongo.ts"]
 }

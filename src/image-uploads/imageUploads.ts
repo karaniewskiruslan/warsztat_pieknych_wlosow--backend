@@ -1,6 +1,4 @@
-import multer from "multer";
-
-const storage = multer.memoryStorage();
+import multer from 'multer';
 
 export const serviceImageUpload = multer({
   limits: {
@@ -8,12 +6,12 @@ export const serviceImageUpload = multer({
   },
   fileFilter: (_req, file, cb) => {
     if (
-      file.mimetype.startsWith("image/") &&
-      ["png", "jpeg", "webp", "svg+xml"].some((type) => file.mimetype.endsWith(type))
+      file.mimetype.startsWith('image/') &&
+      ['png', 'jpeg', 'webp', 'svg+xml'].some((type) => file.mimetype.endsWith(type))
     ) {
       cb(null, true);
     } else {
-      cb(new Error("Unaccepted file type"));
+      cb(new Error('Unaccepted file type'));
     }
   },
   storage: multer.memoryStorage(),

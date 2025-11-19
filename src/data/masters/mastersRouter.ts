@@ -1,7 +1,7 @@
+import db from '@config/mongo';
+import { MasterType } from '@models/masters.type';
 import dotenv from 'dotenv';
 import express from 'express';
-import db from '../../mongodb/init';
-import { MasterType } from '../../types/masters.type';
 
 dotenv.config();
 const mastersRouter = express.Router();

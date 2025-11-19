@@ -1,12 +1,12 @@
 import dotenv from 'dotenv';
-import express, { Request } from 'express';
-import { Services } from '../../types/services.type';
-import { serviceImageUpload } from '../../image-uploads/imageUploads';
+import express from 'express';
 import { v4 as uId } from 'uuid';
 import path from 'path';
 import { unlink, writeFile } from 'fs/promises';
-import { getImageUrl } from '../../helpers/helpers';
-import db from '../../mongodb/init';
+import db from '@config/mongo';
+import { getImageUrl } from '@helpers/helpers';
+import { Services } from '@models/services.type';
+import { serviceImageUpload } from '@imageUpload/imageUploads';
 
 dotenv.config();
 const servicesRouter = express.Router();
@@ -23,7 +23,7 @@ servicesRouter.get('/services', async (_req, res) => {
 });
 
 servicesRouter.post('/services', serviceImageUpload.single('image'), async (req, res) => {
-  const { name, category, masters, last, options, cost, image } = req.body;
+  const { name, category, masters, last, options, cost } = req.body;
   const file = req.file;
 
   if (!file) return res.status(400).json({ error: 'File not founded' });
@@ -46,9 +46,11 @@ servicesRouter.post('/services', serviceImageUpload.single('image'), async (req,
       cost: JSON.parse(cost),
     };
 
-    const result = await collection.insertOne(newService);
+    await collection.insertOne(newService);
 
-    return res.status(201).json(result);
+    const inserted = await collection.findOne({ _id: newService._id });
+
+    return res.status(201).json(inserted);
   } catch (err) {
     res.status(400).send({ error: 'Adding item error: ' + err });
   }
@@ -95,9 +97,10 @@ servicesRouter.put('/services/:id', serviceImageUpload.single('image'), async (r
       image: imageUrl,
     };
 
-    const result = await collection.updateOne({ _id: id }, { $set: updatedServiceData });
+    await collection.updateOne({ _id: id }, { $set: updatedServiceData });
+    const inserted = await collection.findOne({ _id: id });
 
-    return res.status(200).json({ success: true, updated: result.modifiedCount > 0, service: updatedServiceData });
+    return res.status(200).json(inserted);
   } catch (err) {
     res.status(400).send({ error: 'Update item error: ' + err });
   }

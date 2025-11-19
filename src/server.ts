@@ -2,9 +2,9 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import adminRouter from './authentication/adminRouter';
-import servicesRouter from './data/services/servicesRouter';
-import bookingRouter from './data/booking/bookingRouter';
-import mastersRouter from './data/masters/mastersRouter';
+import servicesRouter from '@data/services/servicesRouter';
+import bookingRouter from '@data/booking/bookingRouter';
+import mastersRouter from '@data/masters/mastersRouter';
 
 dotenv.config();
 

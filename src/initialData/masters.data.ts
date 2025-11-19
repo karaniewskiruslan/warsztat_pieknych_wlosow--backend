@@ -1,5 +1,5 @@
-import { getImageUrl } from "../helpers/helpers";
-import { MasterType } from "../types/masters.type";
+import { getImageUrl } from '@helpers/helpers';
+import { MasterType } from '@models/masters.type';
 import { Request } from "express";
 
 export const mastersInfo = (req: Request): MasterType[] => [

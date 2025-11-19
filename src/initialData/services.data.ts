@@ -1,5 +1,5 @@
-import { getImageUrl } from '../helpers/helpers';
-import { Services } from '../types/services.type';
+import { getImageUrl } from '@helpers/helpers';
+import { Services } from '@models/services.type';
 import { Request } from 'express';
 
 export const servicesList = (req: Request): Services[] => [

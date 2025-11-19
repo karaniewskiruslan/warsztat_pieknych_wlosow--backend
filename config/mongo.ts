@@ -1,6 +1,6 @@
 import { MongoClient, ServerApiVersion } from 'mongodb';
 
-const uri = 'mongodb+srv://karaniewskiruslan_db_user:anjeBRZtuRrQP8up@services.88xcbdw.mongodb.net/?appName=Services';
+const uri = process.env.MONGO_URL || '';
 
 const client = new MongoClient(uri, {
   serverApi: {
@@ -14,9 +14,9 @@ const initMongo = async () => {
   try {
     await client.connect();
     await client.db('admin').command({ ping: 1 });
-    console.log('✅ Connected to MongoDB Atlas');
+    console.log('Connected to MongoDB Atlas');
   } catch (err) {
-    console.error('❌ MongoDB connection error:', err);
+    console.error('MongoDB connection error:', err);
   }
 };
 

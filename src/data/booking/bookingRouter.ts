@@ -1,9 +1,9 @@
 import dotenv from 'dotenv';
 import express from 'express';
 import { v4 as uId } from 'uuid';
-import { Booking } from '../../types/booking.type';
-import { transporter } from '../../mailer/mailerInit';
-import db from '../../mongodb/init';
+import { Booking } from '@models/booking.type';
+import db from '@config/mongo';
+import { transporter } from '@mailer/mailerInit';
 
 dotenv.config();
 const bookingRouter = express.Router();
@@ -35,7 +35,9 @@ bookingRouter.post('/booking', async (req, res) => {
 
   try {
     const collection = db.collection<Booking>('bookingList');
-    const result = await collection.insertOne(newBooking);
+    await collection.insertOne(newBooking);
+
+    const inserted = await collection.findOne({ _id: newBooking._id });
 
     await transporter.sendMail({
       from: `"Warsztat pięknych włosów" <${process.env.TEST_EMAIL}>`,
@@ -45,7 +47,7 @@ bookingRouter.post('/booking', async (req, res) => {
       Twoja wizyta została zapisana. Czekaj na jej potwierdzenie ze strony admina`,
     });
 
-    return res.status(201).json(result);
+    return res.status(201).json(inserted);
   } catch (err) {
     res.status(400).send({ error: 'Adding item error: ' + err });
   }
@@ -57,7 +59,7 @@ bookingRouter.put('/booking/:id', async (req, res) => {
 
   try {
     const collection = db.collection<Booking>('bookingList');
-    const result = await collection.updateOne({ _id: id }, { $set: { isConfirmed } });
+    await collection.updateOne({ _id: id }, { $set: { isConfirmed } });
     const editedBooking = await collection.findOne({ _id: id });
 
     if (!editedBooking) {
@@ -72,7 +74,7 @@ bookingRouter.put('/booking/:id', async (req, res) => {
       Twoja wizyta została zaakceptowana`,
     });
 
-    return res.status(200).json(result);
+    return res.status(200).json(editedBooking);
   } catch (err) {
     res.status(400).send({ error: 'Update item error: ' + err });
   }
