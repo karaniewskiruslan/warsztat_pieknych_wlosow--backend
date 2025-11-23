@@ -8,6 +8,8 @@ const client = new MongoClient(uri, {
     strict: true,
     deprecationErrors: true,
   },
+  tls: true,
+  tlsAllowInvalidCertificates: false,
 });
 
 const initMongo = async () => {
