@@ -26,6 +26,8 @@ servicesRouter.post('/services', serviceImageUpload.single('image'), async (req,
   const { name, category, masters, last, options, cost } = req.body;
   const file = req.file;
 
+  console.log(req.body, file);
+
   if (!file) return res.status(400).json({ error: 'File not founded' });
 
   try {
@@ -34,6 +36,8 @@ servicesRouter.post('/services', serviceImageUpload.single('image'), async (req,
 
     const collection = db.collection<Services>('serviceList');
     const newArray = await collection.find({}).toArray();
+
+    await writeFile(path.join(process.cwd(), filePath), file.buffer);
 
     const newService: Services = {
       _id: newArray.length + 1,
@@ -74,6 +78,7 @@ servicesRouter.put('/services/:id', serviceImageUpload.single('image'), async (r
     if (newFile) {
       const filename = `${uId()}-${newFile.originalname.replace(/\s+/g, '_')}`;
       const newImagePath = path.join(process.cwd(), 'images', 'services', filename);
+
       await writeFile(newImagePath, newFile.buffer);
       imageUrl = getImageUrl(req, newImagePath);
 
