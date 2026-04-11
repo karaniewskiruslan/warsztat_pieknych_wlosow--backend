@@ -1,4 +1,5 @@
-import 'module-alias/register';
+require('module-alias/register');
+
 import express from 'express';
 import dotenv from 'dotenv';
 import adminRouter from '@data/authentication/adminRouter';
