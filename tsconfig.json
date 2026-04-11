@@ -17,7 +17,15 @@
       "@models/*": ["./types/*"],
       "@data/*": ["./data/*"],
       "@mailer/*": ["./mailer/*"]
-    }
+    },
+
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedSideEffectImports": true,
+    "noUncheckedIndexedAccess": true,
+    "allowUnusedLabels": false,
+    "allowArbitraryExtensions": false
   },
+  "ts-node": { "require": ["tsconfig-paths/register"] },
   "include": ["src/**/*", "src/mongodb", "config/mongo.ts"]
 }

@@ -1,11 +1,5 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.serviceImageUpload = void 0;
-const multer_1 = __importDefault(require("multer"));
-exports.serviceImageUpload = (0, multer_1.default)({
+import multer from 'multer';
+export const serviceImageUpload = multer({
     limits: {
         fileSize: 5 * 1024 * 1024,
     },
@@ -18,5 +12,5 @@ exports.serviceImageUpload = (0, multer_1.default)({
             cb(new Error('Unaccepted file type'));
         }
     },
-    storage: multer_1.default.memoryStorage(),
+    storage: multer.memoryStorage(),
 });

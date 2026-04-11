@@ -1,4 +1,7 @@
 import { MongoClient, ServerApiVersion } from 'mongodb';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const uri = process.env.MONGO_URL || '';
 
@@ -16,7 +19,6 @@ const initMongo = async () => {
   try {
     await client.connect();
     await client.db('admin').command({ ping: 1 });
-    console.log('Connected to MongoDB Atlas');
   } catch (err) {
     console.error('MongoDB connection error:', err);
   }

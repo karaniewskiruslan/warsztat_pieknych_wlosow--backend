@@ -1,4 +1,4 @@
-import { getImageUrl } from '@helpers/helpers';
+import { getImageUrl } from '@helpers/getImageUrl';
 import { MasterType } from '@models/masters.type';
 import { Request } from 'express';
 

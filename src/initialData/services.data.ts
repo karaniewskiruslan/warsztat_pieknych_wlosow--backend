@@ -1,4 +1,4 @@
-import { getImageUrl } from '@helpers/helpers';
+import { getImageUrl } from '@helpers/getImageUrl';
 import { Services } from '@models/services.type';
 import { Request } from 'express';
 

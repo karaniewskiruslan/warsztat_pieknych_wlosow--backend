@@ -4,17 +4,26 @@ import { v4 as uId } from 'uuid';
 import path from 'path';
 import { unlink, writeFile } from 'fs/promises';
 import db from '@config/mongo';
-import { getImageUrl } from '@helpers/helpers';
+import { getImageUrl } from '@helpers/getImageUrl';
 import { Services } from '@models/services.type';
 import { serviceImageUpload } from '@imageUpload/imageUploads';
+import { filterWords } from '@helpers/filterWords';
 
 dotenv.config();
 const servicesRouter = express.Router();
 
-servicesRouter.get('/services', async (_req, res) => {
+servicesRouter.get('/services', async (req, res) => {
+  const { q } = req.query;
+
   try {
     const collection = db.collection<Services>('serviceList');
     const result = await collection.find({}).toArray();
+
+    console.log(q, result);
+
+    if (q) {
+      res.status(200).json(filterWords(q as string, result, 'name'));
+    }
 
     res.status(200).json(result);
   } catch (err) {
@@ -61,7 +70,7 @@ servicesRouter.post('/services', serviceImageUpload.single('image'), async (req,
 });
 
 servicesRouter.put('/services/:id', serviceImageUpload.single('image'), async (req, res) => {
-  const id = +req.params.id;
+  const id = Number(req.params.id ?? '');
   const { name, category, last, masters, options, cost } = req.body;
 
   try {
@@ -85,7 +94,7 @@ servicesRouter.put('/services/:id', serviceImageUpload.single('image'), async (r
       if (existingService.image?.startsWith(`${req.protocol}://${req.get('host')}/images/services/`)) {
         const oldPath = path.join(
           process.cwd(),
-          existingService.image.replace(`${req.protocol}://${req.get('host')}/`, '')
+          existingService.image.replace(`${req.protocol}://${req.get('host')}/`, ''),
         );
         await unlink(oldPath).catch(() => console.warn('Failed to delete old image'));
       }

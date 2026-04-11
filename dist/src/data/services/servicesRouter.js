@@ -1,44 +1,45 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const dotenv_1 = __importDefault(require("dotenv"));
-const express_1 = __importDefault(require("express"));
-const uuid_1 = require("uuid");
-const path_1 = __importDefault(require("path"));
-const promises_1 = require("fs/promises");
-const mongo_1 = __importDefault(require("@config/mongo"));
-const helpers_1 = require("@helpers/helpers");
-const imageUploads_1 = require("@imageUpload/imageUploads");
-dotenv_1.default.config();
-const servicesRouter = express_1.default.Router();
-servicesRouter.get('/services', async (_req, res) => {
+import dotenv from 'dotenv';
+import express from 'express';
+import { v4 as uId } from 'uuid';
+import path from 'path';
+import { unlink, writeFile } from 'fs/promises';
+import db from '@config/mongo';
+import { getImageUrl } from '@helpers/getImageUrl';
+import { serviceImageUpload } from '@imageUpload/imageUploads';
+import { filterWords } from '@helpers/filterWords';
+dotenv.config();
+const servicesRouter = express.Router();
+servicesRouter.get('/services', async (req, res) => {
+    const { q } = req.query;
     try {
-        const collection = mongo_1.default.collection('serviceList');
+        const collection = db.collection('serviceList');
         const result = await collection.find({}).toArray();
+        console.log(q, result);
+        if (q) {
+            res.status(200).json(filterWords(q, result, 'name'));
+        }
         res.status(200).json(result);
     }
     catch (err) {
         res.status(500).send({ error: 'Internal server error.' });
     }
 });
-servicesRouter.post('/services', imageUploads_1.serviceImageUpload.single('image'), async (req, res) => {
+servicesRouter.post('/services', serviceImageUpload.single('image'), async (req, res) => {
     const { name, category, masters, last, options, cost } = req.body;
     const file = req.file;
     console.log(req.body, file);
     if (!file)
         return res.status(400).json({ error: 'File not founded' });
     try {
-        const uniqueFilename = `${(0, uuid_1.v4)()}-${file.originalname.replace(/\s+/g, '_')}`;
-        const filePath = path_1.default.join('images', 'services', uniqueFilename);
-        const collection = mongo_1.default.collection('serviceList');
+        const uniqueFilename = `${uId()}-${file.originalname.replace(/\s+/g, '_')}`;
+        const filePath = path.join('images', 'services', uniqueFilename);
+        const collection = db.collection('serviceList');
         const newArray = await collection.find({}).toArray();
-        await (0, promises_1.writeFile)(path_1.default.join(process.cwd(), filePath), file.buffer);
+        await writeFile(path.join(process.cwd(), filePath), file.buffer);
         const newService = {
             _id: newArray.length + 1,
             name,
-            image: (0, helpers_1.getImageUrl)(req, filePath),
+            image: getImageUrl(req, filePath),
             category,
             masters: JSON.parse(masters),
             last: JSON.parse(last),
@@ -53,11 +54,11 @@ servicesRouter.post('/services', imageUploads_1.serviceImageUpload.single('image
         res.status(400).send({ error: 'Adding item error: ' + err });
     }
 });
-servicesRouter.put('/services/:id', imageUploads_1.serviceImageUpload.single('image'), async (req, res) => {
-    const id = +req.params.id;
+servicesRouter.put('/services/:id', serviceImageUpload.single('image'), async (req, res) => {
+    const id = Number(req.params.id ?? '');
     const { name, category, last, masters, options, cost } = req.body;
     try {
-        const collection = mongo_1.default.collection('serviceList');
+        const collection = db.collection('serviceList');
         const existingService = await collection.findOne({ _id: id });
         if (!existingService) {
             return res.status(404).json({ error: 'Service not found' });
@@ -65,13 +66,13 @@ servicesRouter.put('/services/:id', imageUploads_1.serviceImageUpload.single('im
         let imageUrl = existingService.image;
         const newFile = req.file;
         if (newFile) {
-            const filename = `${(0, uuid_1.v4)()}-${newFile.originalname.replace(/\s+/g, '_')}`;
-            const newImagePath = path_1.default.join(process.cwd(), 'images', 'services', filename);
-            await (0, promises_1.writeFile)(newImagePath, newFile.buffer);
-            imageUrl = (0, helpers_1.getImageUrl)(req, newImagePath);
+            const filename = `${uId()}-${newFile.originalname.replace(/\s+/g, '_')}`;
+            const newImagePath = path.join(process.cwd(), 'images', 'services', filename);
+            await writeFile(newImagePath, newFile.buffer);
+            imageUrl = getImageUrl(req, newImagePath);
             if (existingService.image?.startsWith(`${req.protocol}://${req.get('host')}/images/services/`)) {
-                const oldPath = path_1.default.join(process.cwd(), existingService.image.replace(`${req.protocol}://${req.get('host')}/`, ''));
-                await (0, promises_1.unlink)(oldPath).catch(() => console.warn('Failed to delete old image'));
+                const oldPath = path.join(process.cwd(), existingService.image.replace(`${req.protocol}://${req.get('host')}/`, ''));
+                await unlink(oldPath).catch(() => console.warn('Failed to delete old image'));
             }
         }
         const updatedServiceData = {
@@ -95,14 +96,14 @@ servicesRouter.put('/services/:id', imageUploads_1.serviceImageUpload.single('im
 servicesRouter.delete('/services/:id', async (req, res) => {
     const id = +req.params.id;
     try {
-        const collection = mongo_1.default.collection('serviceList');
+        const collection = db.collection('serviceList');
         const service = await collection.findOne({ _id: id });
         if (!service) {
             return res.status(404).json({ error: 'Service not found' });
         }
         if (service.image?.startsWith(`${req.protocol}://${req.get('host')}/images/services/`)) {
-            const filePath = path_1.default.join(process.cwd(), service.image.replace(`${req.protocol}://${req.get('host')}/`, ''));
-            await (0, promises_1.unlink)(filePath).catch(() => console.warn('Failed to delete old image'));
+            const filePath = path.join(process.cwd(), service.image.replace(`${req.protocol}://${req.get('host')}/`, ''));
+            await unlink(filePath).catch(() => console.warn('Failed to delete old image'));
         }
         const result = await collection.deleteOne({ _id: id });
         return res.status(200).json({ success: true, deleted: result.deletedCount > 0 });
@@ -111,4 +112,4 @@ servicesRouter.delete('/services/:id', async (req, res) => {
         res.status(400).json({ error: 'Delete item error: ' + err });
     }
 });
-exports.default = servicesRouter;
+export default servicesRouter;

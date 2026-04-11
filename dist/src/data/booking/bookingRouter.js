@@ -1,18 +1,13 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const dotenv_1 = __importDefault(require("dotenv"));
-const express_1 = __importDefault(require("express"));
-const uuid_1 = require("uuid");
-const mongo_1 = __importDefault(require("@config/mongo"));
-const mailerInit_1 = require("@mailer/mailerInit");
-dotenv_1.default.config();
-const bookingRouter = express_1.default.Router();
+import dotenv from 'dotenv';
+import express from 'express';
+import { v4 as uId } from 'uuid';
+import db from '@config/mongo';
+import { transporter } from '@mailer/mailerInit';
+dotenv.config();
+const bookingRouter = express.Router();
 bookingRouter.get('/booking', async (_, res) => {
     try {
-        const collection = mongo_1.default.collection('bookingList');
+        const collection = db.collection('bookingList');
         const result = await collection.find({}).toArray();
         res.status(200).json(result);
     }
@@ -23,7 +18,7 @@ bookingRouter.get('/booking', async (_, res) => {
 bookingRouter.post('/booking', async (req, res) => {
     const { fullName, email, service, last, master, date } = req.body;
     const newBooking = {
-        _id: (0, uuid_1.v4)(),
+        _id: uId(),
         fullName: fullName.trim(),
         email: email.trim(),
         service,
@@ -33,10 +28,10 @@ bookingRouter.post('/booking', async (req, res) => {
         isConfirmed: false,
     };
     try {
-        const collection = mongo_1.default.collection('bookingList');
+        const collection = db.collection('bookingList');
         await collection.insertOne(newBooking);
         const inserted = await collection.findOne({ _id: newBooking._id });
-        await mailerInit_1.transporter.sendMail({
+        await transporter.sendMail({
             from: `"Warsztat pięknych włosów" <${process.env.TEST_EMAIL}>`,
             to: `${newBooking.fullName} <${newBooking.email}>`,
             subject: `Rezerwacja wizyty ${newBooking._id.slice(0, 8)}`,
@@ -53,13 +48,13 @@ bookingRouter.put('/booking/:id', async (req, res) => {
     const id = req.params.id;
     const { isConfirmed } = req.body;
     try {
-        const collection = mongo_1.default.collection('bookingList');
+        const collection = db.collection('bookingList');
         await collection.updateOne({ _id: id }, { $set: { isConfirmed } });
         const editedBooking = await collection.findOne({ _id: id });
         if (!editedBooking) {
             return res.status(404).send({ error: 'Booking not found' });
         }
-        await mailerInit_1.transporter.sendMail({
+        await transporter.sendMail({
             from: `"Warsztat pięknych włosów" <${process.env.TEST_EMAIL}>`,
             to: `${editedBooking.fullName} <${editedBooking.email}>`,
             subject: `Wizyta ${editedBooking._id.slice(0, 8)} została potwierdzona`,
@@ -75,7 +70,7 @@ bookingRouter.put('/booking/:id', async (req, res) => {
 bookingRouter.delete('/booking/:id', async (req, res) => {
     const id = req.params.id;
     try {
-        const collection = mongo_1.default.collection('bookingList');
+        const collection = db.collection('bookingList');
         const result = await collection.deleteOne({ _id: id });
         return res.status(200).json(result);
     }
@@ -83,4 +78,4 @@ bookingRouter.delete('/booking/:id', async (req, res) => {
         res.status(400).json({ error: 'Delete item error: ' + err });
     }
 });
-exports.default = bookingRouter;
+export default bookingRouter;
