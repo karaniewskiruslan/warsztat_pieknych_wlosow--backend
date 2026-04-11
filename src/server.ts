@@ -12,7 +12,7 @@ import cors from 'cors';
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const BASE_URL = process.env.BASE_URL || 'http://localhost:5000';
 
 app.use(express.json());
 app.use(cookieParser());
@@ -33,6 +33,6 @@ app.get('/', (_req, res) => {
   res.send('Witaj w Warsztata Pięknych włosów, część serwerowa');
 });
 
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+app.listen(BASE_URL, () => {
+  console.log(`Server running on http://localhost:${BASE_URL}`);
 });
