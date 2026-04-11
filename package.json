@@ -18,7 +18,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "ts-node -r tsconfig-paths/register src/server.ts",
-    "build": "tsc && tsc-alias",
+    "build": "tsc && npx tsc-alias",
     "start": "node dist/src/server.js"
   },
   "dependencies": {
@@ -30,12 +30,12 @@
     "jsonwebtoken": "9.0.2",
     "mongodb": "7.0.0",
     "mongoose": "8.19.4",
-    "multer": "^2.1.1",
-    "nodemailer": "^8.0.5",
+    "multer": "2.1.1",
+    "nodemailer": "8.0.5",
     "path": "0.12.7",
     "tsconfig-paths": "4.2.0",
     "uuid": "11.1.0",
-    "validate-image-type": "^1.2.0",
+    "validate-image-type": "1.2.0",
     "yup": "1.7.0"
   },
   "devDependencies": {
