@@ -34,5 +34,5 @@ app.get('/', (_req, res) => {
 });
 
 app.listen(BASE_URL, () => {
-  console.log(`Server running on http://localhost:${BASE_URL}`);
+  console.log(`Server running on ${BASE_URL}`);
 });
