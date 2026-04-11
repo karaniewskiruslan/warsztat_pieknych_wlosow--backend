@@ -18,8 +18,17 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "ts-node -r tsconfig-paths/register src/server.ts",
-    "build": "tsc && npx tsc-alias",
+    "build": "tsc",
     "start": "node dist/src/server.js"
+  },
+  "_moduleAliases": {
+    "@config": "dist/config",
+    "@helpers": "dist/src/helpers",
+    "@images": "dist/images",
+    "@imageUpload": "dist/src/image-uploads",
+    "@models": "dist/src/types",
+    "@data": "dist/src/data",
+    "@mailer": "dist/src/mailer"
   },
   "dependencies": {
     "bcrypt": "6.0.0",
@@ -28,6 +37,7 @@
     "dotenv": "17.2.1",
     "express": "5.1.0",
     "jsonwebtoken": "9.0.2",
+    "module-alias": "^2.3.4",
     "mongodb": "7.0.0",
     "mongoose": "8.19.4",
     "multer": "2.1.1",
