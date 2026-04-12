@@ -1,11 +1,9 @@
-import dotenv from 'dotenv';
 import express from 'express';
 import { v4 as uId } from 'uuid';
 import { Booking } from '@models/booking.type';
 import db from '@config/mongo';
 import { transporter } from '@mailer/mailerInit';
 
-dotenv.config();
 const bookingRouter = express.Router();
 
 bookingRouter.get('/booking', async (_, res) => {

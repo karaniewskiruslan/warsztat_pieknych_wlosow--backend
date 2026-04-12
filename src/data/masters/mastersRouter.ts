@@ -1,9 +1,7 @@
 import db from '@config/mongo';
 import { MasterType } from '@models/masters.type';
-import dotenv from 'dotenv';
 import express from 'express';
 
-dotenv.config();
 const mastersRouter = express.Router();
 
 mastersRouter.get('/masters', async (_req, res) => {
