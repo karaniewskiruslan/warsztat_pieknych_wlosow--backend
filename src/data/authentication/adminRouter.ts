@@ -1,10 +1,8 @@
 import express from 'express';
 import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
 import db from '@config/mongo';
 import { Users } from '@models/users.type';
 
-dotenv.config();
 const adminRouter = express.Router();
 
 adminRouter.get('/login/me', (req, res) => {
