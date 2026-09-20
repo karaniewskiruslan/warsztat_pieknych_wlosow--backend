@@ -17,18 +17,9 @@
   "main": "dist/src/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "ts-node -r tsconfig-paths/register src/server.ts",
+    "dev": "tsx watch src/server.ts",
     "build": "tsc && tsc-alias",
     "start": "node dist/src/server.js"
-  },
-  "_moduleAliases": {
-    "@config": "dist/config",
-    "@helpers": "dist/src/helpers",
-    "@images": "dist/images",
-    "@imageUpload": "dist/src/image-uploads",
-    "@models": "dist/src/types",
-    "@data": "dist/src/data",
-    "@mailer": "dist/src/mailer"
   },
   "dependencies": {
     "bcrypt": "6.0.0",
@@ -65,6 +56,7 @@
     "ts-node": "10.9.2",
     "ts-node-dev": "2.0.0",
     "tsc-alias": "1.8.16",
+    "tsx": "4.23.15",
     "typescript": "6.0.2"
   }
 }
